@@ -71,12 +71,12 @@ int invvide=0;
         mode=debut_partie_choixmode();
 
 
-        NB_missile=munitions(level);
+        munitions(level, &NB_missile );
 
     } else if(level=='C'){
 
 
-        charger(grille,tableau,&NB_missile,&Bateaux5,&Bateaux4,&Bateaux3,&Bateaux3_1,&Bateaux2);
+        charger(grille,tableau,&NB_missile,&Bateaux5,&Bateaux4,&Bateaux3,&Bateaux3_1,&Bateaux2, &mode);
 
 
 
@@ -111,7 +111,7 @@ int invvide=0;
 
 
     //initialise le nb de munitions en fonction de ce qu'a choisit l'utilisateur
-    NB_missile=munitions(difficulte);
+
 
     do {
 
@@ -167,6 +167,9 @@ int invvide=0;
 
             } else if (type_missile == 'T' && NB_missile.tactique != 0) {
 
+                impacttact(tableau, grille, ligne, colonne, &nbimpact, &Bateaux2, &Bateaux3_1, &Bateaux3, &Bateaux4, &Bateaux5);
+                affichecoup(tableau, grille, visible, nbimpact, &Bateaux2, &Bateaux3_1, &Bateaux3, &Bateaux4, &Bateaux5);
+
             }
 
             if(Bateaux5.vie==0 && Bateaux4.vie==0 && Bateaux3_1.vie==0 && Bateaux3.vie==0 && Bateaux2.vie==0){
@@ -192,9 +195,11 @@ int invvide=0;
 
         } else {
 
+
+            enregistrer(tableau,grille,&NB_missile,&Bateaux5,&Bateaux4,&Bateaux3,&Bateaux3_1,&Bateaux2, &mode);
             affiche_grille(grille);
-            enregistrer(tableau,grille,&NB_missile,&Bateaux5,&Bateaux4,&Bateaux3,&Bateaux3_1,&Bateaux2);
-            affiche_grille(grille);
+            printf("Fin du programme");
+            return 0;
         }
 
 

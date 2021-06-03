@@ -15,23 +15,23 @@
  * @param difficulte
  * @return
  */
-inventaire munitions(char difficulte) {
-    inventaire Nb_missile;
+int munitions(char difficulte, inventaire* Nb_missile) {
+
     if (difficulte == 'F') {
-        Nb_missile.artillerie = 10;
-        Nb_missile.tactique = 10;
-        Nb_missile.bombe = 10;
-        Nb_missile.simple = 10;
+        Nb_missile->artillerie = 10;
+        Nb_missile->tactique = 10;
+        Nb_missile->bombe = 10;
+        Nb_missile->simple = 10;
     } else if (difficulte == 'M') {
-        Nb_missile.artillerie = 3;
-        Nb_missile.tactique = 5;
-        Nb_missile.bombe = 5;
-        Nb_missile.simple = 10;
+        Nb_missile->artillerie = 3;
+        Nb_missile->tactique = 5;
+        Nb_missile->bombe = 5;
+        Nb_missile->simple = 10;
     } else if (difficulte == 'D') {
-        Nb_missile.artillerie = 1;
-        Nb_missile.tactique = 4;
-        Nb_missile.bombe = 2;
-        Nb_missile.simple = 15;
+        Nb_missile->artillerie = 1;
+        Nb_missile->tactique = 4;
+        Nb_missile->bombe = 2;
+        Nb_missile->simple = 15;
 
     }
 

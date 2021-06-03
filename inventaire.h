@@ -12,6 +12,6 @@ typedef struct {
 
 }inventaire;
 
-inventaire munitions(char difficulte);
+int munitions(char difficulte, inventaire* Nb_missile);
 
 #endif //PROJETBATAILLENAVALE_INVENTAIRE_H

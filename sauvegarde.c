@@ -1,8 +1,7 @@
 //
 // Created by simon on 29/05/2021.
 //
-
-#include <stdio.h>
+#include     <stdio.h>
 #include "grille.h"
 #include <stdlib.h>
 #include <time.h>
@@ -15,7 +14,7 @@
 #define FILE_NAME "partie.txt"
 
 
-void enregistrer(char grille[10][10],char tableau[10][10], inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2){
+void enregistrer(char grille[10][10],char tableau[10][10], inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2,char *mode){
     int k, m;
     FILE *f = fopen("partie.txt", "w");
     if (f == NULL) {
@@ -61,12 +60,13 @@ void enregistrer(char grille[10][10],char tableau[10][10], inventaire *NB_missil
         fprintf(f,"%c",Bateaux3->orientation);
         fprintf(f,"%c",Bateaux3_1->orientation);
         fprintf(f,"%c",Bateaux2->orientation);
+        fprintf(f,"%c",*mode);
 
         fclose(f);
     }
 }
 
-void charger(char grille[10][10],char tableau[10][10], inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2){
+void charger(char grille[10][10],char tableau[10][10], inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2,char *mode){
 
 
 
@@ -89,13 +89,13 @@ void charger(char grille[10][10],char tableau[10][10], inventaire *NB_missile,bo
 
     for (i=0;i<10;i++){
         for (j=0;j<10;j++){
-            grille[i][j]= fgetc(f);
+            tableau[i][j]= fgetc(f);
         }
     }
 
     for (i=0;i<10;i++){
         for (j=0;j<10;j++){
-            tableau[i][j]= fgetc(f);
+            grille[i][j]= fgetc(f);
         }
     }
 
@@ -126,6 +126,7 @@ void charger(char grille[10][10],char tableau[10][10], inventaire *NB_missile,bo
             Bateaux3->orientation=fgetc(f);
             Bateaux3_1->orientation=fgetc(f);
             Bateaux2->orientation=fgetc(f);
+            *mode= fgetc(f);
 
 
 
@@ -136,5 +137,4 @@ void charger(char grille[10][10],char tableau[10][10], inventaire *NB_missile,bo
 
 
     fclose(f);
-
 }

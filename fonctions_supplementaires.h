@@ -14,4 +14,6 @@
 
 char choixdiff();
 
+char demande();
+
 #endif //PROJETBATAILLENAVALE_FONCTIONS_SUPPLEMENTAIRES_H

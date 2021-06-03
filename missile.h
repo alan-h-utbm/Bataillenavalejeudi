@@ -29,6 +29,6 @@ void classique(char tableau[10][10], char grille[10][10], int ligne, int colonne
 
 void artillerie(char tableau[10][10], char grille[10][10], int ligne, int colonne, int* nbimpact, boat Bateaux2,boat Bateaux3_1,boat Bateaux3,boat Bateaux4,boat Bateaux5, int visible);
 
-
+void impacttact(char tableau[10][10], char grille[10][10], int ligne, int colonne, int * nbimpact, boat *Bateaux2,boat *Bateaux3_1,boat *Bateaux3,boat *Bateaux4,boat *Bateaux5);
 
 #endif //PROJETBATAILLENAVALE_MISSILE_H

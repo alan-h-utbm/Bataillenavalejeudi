@@ -27,8 +27,9 @@ void initgrille(char grille[10][10], char tableau[10][10]) {
 
 void regles(){
 
+
     printf("Le but est de coule les bateaux dissimules dans la grille\n");
-    printf("Votre adversaire possede 5 bateaux:\n");
+    printf("Notre adversaire possede 5 bateaux:\n");
     printf(" - un de taille 5\n - un de taille 4\n - deux de taille 3\n - un de taille 2\n");
 
 }
@@ -92,13 +93,15 @@ void grilleutilisateur(char grille[10][10]){
 void affichecoup(char tableau[10][10], char grille[10][10], int visible, int nbimpact, boat* Bateaux2,boat* Bateaux3_1,boat* Bateaux3,boat* Bateaux4,boat* Bateaux5){
 
     if(visible==0){
-        grilleutilisateur(grille);
-        affiche_grille(tableau);
+        grilleutilisateur(tableau);
+        affiche_grille(grille);
     }
 
     printf("vous avez touche des bateaux %d fois\n", nbimpact);
+
+
     if(Bateaux2->taille==0){
-        printf("Bateau de taille 2 coule\n");
+        printf("Yohoho Bateau de taille 2 coule, bien joue Moussaillon\n");
         Bateaux2->taille=2;
     }
 
@@ -123,29 +126,3 @@ void affichecoup(char tableau[10][10], char grille[10][10], int visible, int nbi
     }
 }
 
-char demande(){
-
-
-    char rep;
-    int valide=1;
-
-    do {
-        printf("que voulez vous faire ?\n Sauvegarder et quitter : S\n Jouer : J");
-        fflush(stdin);
-        scanf("%c", &rep);
-        rep= toupper(rep);
-
-
-        if(rep=='J' || rep=='S'){
-            return rep;
-        } else{
-            printf("erreur choix d'action invalide");
-            valide=0;
-        }
-
-    } while (valide==0);
-
-
-
-
-}

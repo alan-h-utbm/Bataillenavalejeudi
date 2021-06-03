@@ -142,26 +142,26 @@ void impact(char tableau[10][10], char grille[10][10], int ligne, int colonne, i
             Bateaux4->vie--;
             if (Bateaux4->vie == 0) {
                 Bateaux4->taille=0;
-                printf("Bateau de taille 4 coule");
+
             }
 
         } else if (grille[colonne][ligne] == '2' && Bateaux2->vie != 0) {
             Bateaux2->vie--;
             if (Bateaux2->vie == 0) {
                 Bateaux2->taille=0;
-                printf("Bateau de taille 2 coule");
+
             }
         } else if(grille[colonne][ligne] =='3' && Bateaux3->vie!=0){
             Bateaux3->vie--;
             if(Bateaux3->vie==0){
                 Bateaux3->taille=0;
-                printf("Bateau de taille 3 coule");
+
             }
         } else if(grille[colonne][ligne] =='1' && Bateaux3_1->vie!=0 ){
             Bateaux3_1->vie--;
             if(Bateaux3_1->vie==0){
                 Bateaux3_1->taille=0;
-                printf("Bateau de taille 3 coule");
+
             }
         }
 
@@ -222,41 +222,92 @@ void bombe(char tableau[10][10], char grille[10][10], int ligne, int colonne, in
 
 
 }
-
-void classique(char tableau[10][10], char grille[10][10], int ligne, int colonne, int * nbimpact, boat Bateaux2,boat Bateaux3_1,boat Bateaux3,boat Bateaux4,boat Bateaux5, int visible){
-
-    // on appelel impact avec l'etat de nos deux tableaux (celui avec la position des bateaux et celui avec les cases touchees
-    // nbimpact permettera juste de savoir combien de fois on a touche un bateau
-    // on importe les structures bateau qui contiennent les points de vie du bateau et autre
-
-
-
-
-    if(visible==0){
-        grilleutilisateur(grille);
-        affiche_grille(tableau);
-    }
-
-
-
-
-}
-
-void artillerie(char tableau[10][10], char grille[10][10], int ligne, int colonne, int* nbimpact, boat Bateaux2, boat Bateaux3_1, boat Bateaux3, boat Bateaux4, boat Bateaux5, int visible){
-
-
-
-
-    if(visible==0){
-        grilleutilisateur(grille);
-        affiche_grille(tableau);
-    }
-
-
-
-}
-
 // inventaire indication_impact_missile(int grille[10][10],inventaire NB_missile ){
+
+void impacttact(char tableau[10][10], char grille[10][10], int ligne, int colonne, int * nbimpact, boat *Bateaux2,boat *Bateaux3_1,boat *Bateaux3,boat *Bateaux4,boat *Bateaux5){
+
+
+int ligne1, colonne1;
+// Impact est la fonction qui gere comment un missile impactera la grille et les points de vie d'un bateau
+
+char bateau;
+*nbimpact=0;
+
+    if (grille[colonne][ligne] != '_' && tableau[colonne][ligne] != 'X' && tableau[colonne][ligne] != 'O') {
+        tableau[colonne][ligne] = 'X';
+        *nbimpact=1;
+        bateau=grille[colonne][ligne];
+        printf("%c", bateau);
+
+        for (int i = 0; i < 10; ++i) {
+            if(grille[i][ligne]==bateau && tableau[i][ligne] != 'X' && tableau[i][ligne] != 'O'){
+                tableau[i][ligne] = 'X';
+            }
+        }
+
+        //applique impact sur toutes les colonnes de la croix
+
+        for (int i = 0; i < 10; ++i) {
+            if(grille[colonne][i]==bateau && tableau[colonne][i] != 'X' && tableau[colonne][i] != 'O'){
+                tableau[colonne][i] = 'X';
+            }
+        }
+
+
+// j'ai essayé de faire des essais en faisant des soustractions ou avec un switch pour changer directement la valeur, apres le premier changment cela n'est plus possible
+// on peut modifier chaque point de vie une fois suelement
+        fflush(stdin);
+
+        if (grille[colonne][ligne] == '5' && Bateaux5->vie != 0) {
+            // le on rentre bien dans la boucle me permet de voir que c'est bien le changement de la valeur qui pose probleme
+            // (a moins que je me goure totalement)
+            Bateaux5->vie=0;
+            if(Bateaux5->vie==0){
+                Bateaux5->taille=0;
+                printf("Bateau de taille 5 coule");
+            }
+
+
+        } else if (grille[colonne][ligne] == '4' && Bateaux4->vie != 0) {
+            Bateaux4->vie=0;
+            if (Bateaux4->vie == 0) {
+                Bateaux4->taille=0;
+                printf("Bateau de taille 4 coule");
+            }
+
+        } else if (grille[colonne][ligne] == '2' && Bateaux2->vie != 0) {
+            Bateaux2->vie=0;
+            if (Bateaux2->vie == 0) {
+                Bateaux2->taille=0;
+                printf("Bateau de taille 2 coule");
+            }
+        } else if(grille[colonne][ligne] =='3' && Bateaux3->vie!=0){
+            Bateaux3->vie=0;
+            if(Bateaux3->vie==0){
+                Bateaux3->taille=0;
+                printf("Bateau de taille 3 coule");
+            }
+        } else if(grille[colonne][ligne] =='1' && Bateaux3_1->vie!=0 ){
+            Bateaux3_1->vie=0;
+            if(Bateaux3_1->vie==0){
+                Bateaux3_1->taille=0;
+                printf("Bateau de taille 3 coule");
+            }
+        }
+
+        // pas encore fait pour les bateaux 3
+
+    } else if (tableau[colonne][ligne] != 'X' && tableau[colonne][ligne] != 'O') {
+        tableau[colonne][ligne] = 'O';
+
+    }
+
+
+
+
+}
+
+
 
 
 

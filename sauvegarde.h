@@ -1,6 +1,4 @@
-//
-// Created by simon on 29/05/2021.
-//
+
 #include <stdio.h>
 #include "grille.h"
 #include <stdlib.h>
@@ -15,8 +13,9 @@
 #define PROJETBATAILLENAVALE_SAUVEGARDE_H
 
 
-void enregistrer(char grille[10][10],char tableau[10][10], inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2);
+void enregistrer(char grille[10][10],char tableau[10][10], inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2,char *mode);
 
-void charger(char grille[10][10], char tableau[10][10],inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2);
+void charger(char grille[10][10], char tableau[10][10],inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2,char *mode);
+
 
 #endif //PROJETBATAILLENAVALE_SAUVEGARDE_H

@@ -100,4 +100,29 @@ char debut_partie_choixmode(){
 
             }
 
+char demande(){
 
+
+    char rep;
+    int valide=1;
+
+    do {
+        printf("que voulez vous faire  ?\n Sauvegarder et quitter : S\n Jouer : J\n ");
+        fflush(stdin);
+        scanf("%c", &rep);
+        rep= toupper(rep);
+
+
+        if(rep=='J' || rep=='S'){
+            return rep;
+        } else{
+            printf("Erreur : option choisie non valide !");
+            valide=0;
+        }
+
+    } while (valide==0);
+
+
+
+
+}
