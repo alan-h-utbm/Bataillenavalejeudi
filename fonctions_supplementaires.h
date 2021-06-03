@@ -12,5 +12,6 @@
 
     int verifi_poitionboat(char grille[10][10],int taille);
 
+char choixdiff();
 
 #endif //PROJETBATAILLENAVALE_FONCTIONS_SUPPLEMENTAIRES_H

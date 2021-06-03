@@ -35,7 +35,7 @@ char choix_type_missile(inventaire *NB_missile, char tableau[10][10], char grill
    // ai rajouté les fflush car chaque premier scanf du programme ramenait une valeur fausse et formait une boucle supplementaire
 
    //le retrait du nombre de missile marche parfaitement
-
+//Bateaux5
     do {
         valide=0;
         fflush(stdin);
@@ -44,25 +44,25 @@ char choix_type_missile(inventaire *NB_missile, char tableau[10][10], char grill
 
         if (type_missile == 'C' && NB_missile->simple != 0) {
             NB_missile->simple = NB_missile->simple - 1;
-            verif(tableau, grille, &ligne, &colonne);
-            classique(tableau, grille, ligne, colonne, &nbimpact, *Bateaux2, *Bateaux3, *Bateaux3_1, *Bateaux4, *Bateaux5, visible);
+            return type_missile;
+
 
         } else if (type_missile == 'B' && NB_missile->bombe != 0) {
             NB_missile->bombe = NB_missile->bombe - 1;
-            verif(tableau, grille, &ligne, &colonne);
-            bombe(tableau, grille, ligne, colonne, &nbimpact, *Bateaux2, *Bateaux3, *Bateaux3_1, *Bateaux4, *Bateaux5, visible);
+            return type_missile;
+
 
         } else if (type_missile == 'A' && NB_missile->artillerie != 0) {
             NB_missile->artillerie = NB_missile->artillerie - 1;
-            verif(tableau, grille, &ligne, &colonne);
-            artillerie(tableau, grille, ligne, colonne, &nbimpact, *Bateaux2, *Bateaux3, *Bateaux3_1, *Bateaux4, *Bateaux5, visible);
+            return type_missile;
+
 
 
 
         } else if (type_missile == 'T' && NB_missile->tactique != 0) {
             NB_missile->tactique = NB_missile->tactique - 1;
+            return type_missile;
 
-            verif(tableau, grille, &ligne, &colonne);
             //à définir
 
         } else {
@@ -117,6 +117,7 @@ void impact(char tableau[10][10], char grille[10][10], int ligne, int colonne, i
 
 
 
+
     if (grille[colonne][ligne] != '_' && tableau[colonne][ligne] != 'X' && tableau[colonne][ligne] != 'O') {
         tableau[colonne][ligne] = 'X';
         ++*nbimpact;
@@ -125,41 +126,42 @@ void impact(char tableau[10][10], char grille[10][10], int ligne, int colonne, i
 
 // j'ai essayé de faire des essais en faisant des soustractions ou avec un switch pour changer directement la valeur, apres le premier changment cela n'est plus possible
 // on peut modifier chaque point de vie une fois suelement
-
+        fflush(stdin);
 
         if (grille[colonne][ligne] == '5' ) {
-
             // le on rentre bien dans la boucle me permet de voir que c'est bien le changement de la valeur qui pose probleme
             // (a moins que je me goure totalement)
-
-            printf("on rentre bien dans la boucle\n");
-            switch (Bateaux5->vie) {
-                case 5: Bateaux5->vie=4;
-                    break;
-                case 4: Bateaux5->vie=3;
-                    break;
-                case 3: Bateaux5->vie=2;
-                    break;
-                case 2: Bateaux5->vie=1;
-                    break;
-                case 1: Bateaux5->vie=0;
-                    printf("bateau de taille 5 could");
-                    break;
-
-
-            }
+     Bateaux5->vie=Bateaux5->vie-1;
+     if(Bateaux5->vie==0){
+         Bateaux5->taille=0;
+         printf("Bateau de taille 5 coule");
+     }
 
 
         } else if (grille[colonne][ligne] == '4' && Bateaux4->vie != 0) {
             Bateaux4->vie--;
             if (Bateaux4->vie == 0) {
-                printf("Bateau de taille 4 coulé");
+                Bateaux4->taille=0;
+                printf("Bateau de taille 4 coule");
             }
 
         } else if (grille[colonne][ligne] == '2' && Bateaux2->vie != 0) {
             Bateaux2->vie--;
             if (Bateaux2->vie == 0) {
-                printf("Bateau de taille 2 coulé");
+                Bateaux2->taille=0;
+                printf("Bateau de taille 2 coule");
+            }
+        } else if(grille[colonne][ligne] =='3' && Bateaux3->vie!=0){
+            Bateaux3->vie--;
+            if(Bateaux3->vie==0){
+                Bateaux3->taille=0;
+                printf("Bateau de taille 3 coule");
+            }
+        } else if(grille[colonne][ligne] =='1' && Bateaux3_1->vie!=0 ){
+            Bateaux3_1->vie--;
+            if(Bateaux3_1->vie==0){
+                Bateaux3_1->taille=0;
+                printf("Bateau de taille 3 coule");
             }
         }
 
@@ -170,9 +172,7 @@ void impact(char tableau[10][10], char grille[10][10], int ligne, int colonne, i
 
     }
 
-    printf("valeur bateau5.vie : %d\n" , Bateaux5->vie);
-    printf("valeur Bateaux4.vie %d\n", Bateaux4->vie);
-    printf("valeur Bateaux2.vie %d\n", Bateaux2->vie);
+
 
 
     // a mettre soit dans premier if soit dans fonction à part mais ça fait beaucoup de fonctions
@@ -184,56 +184,41 @@ void impact(char tableau[10][10], char grille[10][10], int ligne, int colonne, i
 }
 
 
-void bombe(char tableau[10][10], char grille[10][10], int ligne, int colonne, int * nbimpact, boat Bateaux2, boat Bateaux3_1, boat Bateaux3, boat Bateaux4, boat Bateaux5, int visible){
+void bombe(char tableau[10][10], char grille[10][10], int ligne, int colonne, int* min1, int* min2, int* max1, int* max2){
 
-    int min1, min2;
-    int max1, max2;
 
 
 // Les lignes suivantes vont restreindre la zone d'action de la fonction ipmpact afin qu'elle n'essaye pas d'atteindre des cases en dehors de la grille
 
     if (colonne==0){
-        min1 = 0;
+        *min1 = 0;
     } else {
-        min1= colonne -1;
+        *min1= colonne -1;
     }
 
     if (ligne==0){
-        min2=0;
+        *min2=0;
     } else {
-        min2=ligne-1;
+        *min2=ligne-1;
     }
 
     if (colonne==9){
-        max1=9;
+        *max1=9;
     } else{
-        max1=colonne+1;
+        *max1=colonne+1;
     }
 
     if (ligne==9){
-        max2=9;
+        *max2=9;
     } else{
-        max2=ligne+1;
+        *max2=ligne+1;
     }
-
 
     //on applique impact à toute les cases du perimetre (toutes les cases situee a un bloc du point d'impact renseigne au debut
-    for (int k = min1; k <= max1; ++k) {
-        for (int l = min2; l <= max2; ++l) {
-
-            impact(tableau, grille, l, k, nbimpact, &Bateaux2, &Bateaux3_1, &Bateaux3, &Bateaux4, &Bateaux5);
-        }
-    }
 
 
 //Permet de faire en sorte que la grille ne s'affiche plus lorsque le mode aveugle est selectionne
 
-    if(visible==0){
-        grilleutilisateur(grille);
-        affiche_grille(tableau);
-    }
-
-    affichimpact(*nbimpact);
 
 
 }
@@ -244,7 +229,7 @@ void classique(char tableau[10][10], char grille[10][10], int ligne, int colonne
     // nbimpact permettera juste de savoir combien de fois on a touche un bateau
     // on importe les structures bateau qui contiennent les points de vie du bateau et autre
 
-    impact(tableau, grille, ligne, colonne, nbimpact, &Bateaux2, &Bateaux3_1, &Bateaux3, &Bateaux4, &Bateaux5);
+
 
 
     if(visible==0){
@@ -252,26 +237,13 @@ void classique(char tableau[10][10], char grille[10][10], int ligne, int colonne
         affiche_grille(tableau);
     }
 
-    affichimpact(*nbimpact);
+
 
 
 }
 
 void artillerie(char tableau[10][10], char grille[10][10], int ligne, int colonne, int* nbimpact, boat Bateaux2, boat Bateaux3_1, boat Bateaux3, boat Bateaux4, boat Bateaux5, int visible){
 
-    //applique impacty sur toutes les lignes de la croix
-    int nbimpf=0;
-
-    for (int i = 0; i < 10; ++i) {
-        impact(tableau, grille, i, colonne, nbimpact, &Bateaux2, &Bateaux3_1, &Bateaux3, &Bateaux4, &Bateaux5);
-    }
-
-    //applique impact sur toutes les colonnes de la croix
-
-    for (int i = 0; i < 10; ++i) {
-        impact(tableau, grille, ligne, i, nbimpact, &Bateaux2, &Bateaux3_1, &Bateaux3, &Bateaux4, &Bateaux5);
-    }
-
 
 
 
@@ -280,19 +252,12 @@ void artillerie(char tableau[10][10], char grille[10][10], int ligne, int colonn
         affiche_grille(tableau);
     }
 
-    affichimpact(*nbimpact);
+
 
 }
 
 // inventaire indication_impact_missile(int grille[10][10],inventaire NB_missile ){
 
-void affichimpact(int  nbimpact){
 
-    //sert juste à aider l'utilisateur en cas de mode aveugle
-    printf("vous avez touche des bateaux %d fois\n", nbimpact);
-
-
-
-}
 
 

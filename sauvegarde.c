@@ -15,75 +15,126 @@
 #define FILE_NAME "partie.txt"
 
 
-void enregistrer(char grille[10][10], inventaire *NB_missile){
-    int k,m;
+void enregistrer(char grille[10][10],char tableau[10][10], inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2){
+    int k, m;
     FILE *f = fopen("partie.txt", "w");
-    if (f == NULL)
-    {
+    if (f == NULL) {
         printf("Error opening file!,\n");
         exit(1);
-    }else{
+    } else {
         printf("fichier bien ouvert  \n");
-    }
-
-    if (f != NULL) {
         printf("Enregistrement....");
-        for ( k = 0; k < 10; k++) {
-            for ( m = 0; m < 10; m++) {
-                fprintf(f," %c",grille[k][m]);
+
+
+        rewind(f);
+
+        for (k = 0; k < 10; k++) {
+            for (m = 0; m < 10; m++) {
+
+                fprintf(f,"%c",grille[k][m]);
+
             }
-            fprintf(f, "\n");
         }
+
+
+        // fprintf(f,"A");
+        for (k = 0; k < 10; k++) {
+            for (m = 0; m < 10; m++) {
+                fprintf(f,"%c",tableau[k][m]);
+            }
+        }
+
+        fprintf(f,"B\n");
+        fprintf(f, "%d\n", NB_missile->bombe);
+        fprintf(f, "%d\n", NB_missile->artillerie);
+        fprintf(f, "%d\n", NB_missile->tactique);
+        fprintf(f,"%d\n",NB_missile->simple);
+
+        fprintf(f,"%d\n",Bateaux5->vie);
+        fprintf(f,"%d\n",Bateaux4->vie);
+        fprintf(f,"%d\n",Bateaux3->vie);
+        fprintf(f,"%d\n",Bateaux3_1->vie);
+        fprintf(f,"%d",Bateaux2->vie);
+
+        fprintf(f,"%c",Bateaux5->orientation);
+        fprintf(f,"%c",Bateaux4->orientation);
+        fprintf(f,"%c",Bateaux3->orientation);
+        fprintf(f,"%c",Bateaux3_1->orientation);
+        fprintf(f,"%c",Bateaux2->orientation);
+
+        fclose(f);
     }
-    fprintf(f,"%d\n", NB_missile->bombe);
-    fprintf(f,"%d\n", NB_missile->artillerie);
-    fprintf(f,"%d\n", NB_missile->tactique);
-    fclose(f);
 }
 
-void charger(char grille[10][10], inventaire *NB_missile) { //todo: pass the matrix by reference , in other words: change it from normal int[i][j] to a pointer of matrix;
-    int i =0 , j=0;
-    FILE *f;
+void charger(char grille[10][10],char tableau[10][10], inventaire *NB_missile,boat *Bateaux5,boat *Bateaux4,boat *Bateaux3,boat *Bateaux3_1,boat *Bateaux2){
+
+
+
+    FILE *f = fopen("partie.txt", "rt");
+
+
+    if (f == NULL) {
+        printf("Error opening file!,\n");
+        exit(1);
+    } else {
+        printf("fichier bien ouvert\n");
+    }
+
+    int i,j;
+
     char c;
-    f=fopen("partie.txt","rt");
+    rewind(f);
 
 
-    while((c=fgetc(f))!=EOF) {
-        switch (c) {
-            case ' ':
-                break;
-            case '\n':
-                break;
-            default:
-                if (c == '_')
-                    grille[i][j] = c;
-                j++;
-                if (j>9) {
-                    i++;
-                    j = 0;
-                    if(i == 9){
-                        c=fgetc(f);
-                        NB_missile->bombe = (int)c;
 
-                        c=fgetc(f);
-                        NB_missile->tactique= (int)c;
-
-                        c=fgetc(f);
-                       NB_missile->simple = (int)c;
-                    }
-                }
-
-                break;
+    for (i=0;i<10;i++){
+        for (j=0;j<10;j++){
+            grille[i][j]= fgetc(f);
         }
     }
+
+    for (i=0;i<10;i++){
+        for (j=0;j<10;j++){
+            tableau[i][j]= fgetc(f);
+        }
+    }
+
+    /*
+    while ((c = fgetc(f)) !='A') {
+    }
+*/
+
+
+    rewind(f);
+    while ((c = fgetc(f)) !=EOF) {
+        if (c != 'B') {
+
+        } else {
+            fgetc(f);
+
+            fscanf(f, "%d", &NB_missile->bombe);
+            fscanf(f, "%d", &NB_missile->artillerie);
+            fscanf(f, "%d", &NB_missile->tactique);
+            fscanf(f, "%d", &NB_missile->simple);
+            fscanf(f, "%d", &Bateaux5->vie);
+            fscanf(f, "%d", &Bateaux4->vie);
+            fscanf(f, "%d", &Bateaux3->vie);
+            fscanf(f, "%d", &Bateaux3_1->vie);
+            fscanf(f, "%d", &Bateaux2->vie);
+            Bateaux5->orientation=fgetc(f);
+            Bateaux4->orientation=fgetc(f);
+            Bateaux3->orientation=fgetc(f);
+            Bateaux3_1->orientation=fgetc(f);
+            Bateaux2->orientation=fgetc(f);
+
+
+
+
+        }
+    }
+
+
 
     fclose(f);
-    for (int k = 0; k < 10; ++k) {
-        for (int m = 0; m < 10; ++m) {
-            printf("%c ",grille[k][m]);
-        }
-        printf("\n");
-    }
-
 
 }

@@ -100,42 +100,62 @@ void genere_bateau(char grille[10][10],boat *Bateaux2,boat *Bateaux3_1,boat *Bat
     Bateaux4->y=y;
 
 
-//génère les 2 bateaux 3
-    for (int j = 1; j < 3; j++) {
-        do {
-            x = rand() % 10;
-            y = rand() % 10;
-        } while (x > 7 || grille[y][x + 1] != '_' || grille[y][x + 2] != '_' ||
-                 y > 7 || grille[y + 1][x] != '_' || grille[y + 2][x] != '_');
-        grille[y][x] = '3';
+//génère le bateaux 3
+
+    do {
+        x = rand() % 10;
+        y = rand() % 10;
+    } while (x > 7 || grille[y][x + 1] != '_' || grille[y][x + 2] != '_' ||
+             y > 7 || grille[y + 1][x] != '_' || grille[y + 2][x] != '_');
+    grille[y][x] = '3';
 
 
-        a = rand() % 2;
+    a = rand() % 2;
 
-        if (a == 0) {
-            grille[y][x + 1] = '3';
-            grille[y][x + 2] = '3';
+    if (a == 0) {
+        grille[y][x + 1] = '3';
+        grille[y][x + 2] = '3';
 
 
-        } else if (a == 1) {
-            grille[y + 1][x] = '3';
-            grille[y + 2][x] = '3';
-        }
-        //remplit les information du bateau générer dans la structure boat correspondante
-        if(j==1){
-            if(a==0){
-
-                Bateaux3->orientation='H';
-            }else{
-                Bateaux3->orientation='V';
-            }
-            Bateaux3->taille=3;
-            Bateaux3->vie=3;
-            Bateaux3->x=x;
-            Bateaux3->y=y;
-        }
+    } else if (a == 1) {
+        grille[y + 1][x] = '3';
+        grille[y + 2][x] = '3';
     }
+    //remplit les information du bateau générer dans la structure boat correspondante
 
+    if(a==0){
+
+        Bateaux3->orientation='H';
+    }else{
+        Bateaux3->orientation='V';
+    }
+    Bateaux3->taille=3;
+    Bateaux3->vie=3;
+    Bateaux3->x=x;
+    Bateaux3->y=y;
+
+
+
+//génère le bateaux 3_1
+    do {
+        x = rand() % 10;
+        y = rand() % 10;
+    } while (x > 7 || grille[y][x + 1] != '_' || grille[y][x + 2] != '_' ||
+             y > 7 || grille[y + 1][x] != '_' || grille[y + 2][x] != '_');
+    grille[y][x] = '1';
+
+
+    a = rand() % 2;
+
+    if (a == 0) {
+        grille[y][x + 1] = '1';
+        grille[y][x + 2] = '1';
+
+
+    } else if (a == 1) {
+        grille[y + 1][x] = '1';
+        grille[y + 2][x] = '1';
+    }
 
 
 //remplit les information du bateau générer dans la structure boat correspondante
@@ -149,6 +169,7 @@ void genere_bateau(char grille[10][10],boat *Bateaux2,boat *Bateaux3_1,boat *Bat
     Bateaux3_1->vie=3;
     Bateaux3_1->x=x;
     Bateaux3_1->y=y;
+
 
 
 

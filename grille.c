@@ -4,13 +4,14 @@
 
 #include "grille.h"
 #include <stdio.h>
+#include "bateaux.h"
+#include <strings.h>
+#include <ctype.h>
 /**
  * affiche la grille de départ sans les indications bateaux
  * @param grille
  */
 void initgrille(char grille[10][10], char tableau[10][10]) {
-
-
 
 
     int i, j;
@@ -21,6 +22,7 @@ void initgrille(char grille[10][10], char tableau[10][10]) {
             tableau[i][j]='_';
         }
     }
+
 }
 
 void regles(){
@@ -81,6 +83,67 @@ void grilleutilisateur(char grille[10][10]){
     }
     printf("  -----------------------------------------\n");
     printf("     0   1   2   3   4   5   6   7   8   9\n");
+
+
+
+
+}
+
+void affichecoup(char tableau[10][10], char grille[10][10], int visible, int nbimpact, boat* Bateaux2,boat* Bateaux3_1,boat* Bateaux3,boat* Bateaux4,boat* Bateaux5){
+
+    if(visible==0){
+        grilleutilisateur(grille);
+        affiche_grille(tableau);
+    }
+
+    printf("vous avez touche des bateaux %d fois\n", nbimpact);
+    if(Bateaux2->taille==0){
+        printf("Bateau de taille 2 coule\n");
+        Bateaux2->taille=2;
+    }
+
+    if (Bateaux3->taille==0){
+        printf("Bateau de taille 3 coule\n");
+        Bateaux3->taille=3;
+    }
+
+    if(Bateaux3_1->taille==0){
+        printf("Bateau de taille 3 coule\n");
+        Bateaux3_1->taille=3;
+    }
+
+    if (Bateaux4->taille==0){
+        printf("Bateau de taille 4 coule\n");
+        Bateaux4->taille=4;
+    }
+
+    if (Bateaux5->taille==0){
+        printf("Bateau de taille 5 coule\n");
+        Bateaux5->taille=5;
+    }
+}
+
+char demande(){
+
+
+    char rep;
+    int valide=1;
+
+    do {
+        printf("que voulez vous faire ?\n Sauvegarder et quitter : S\n Jouer : J");
+        fflush(stdin);
+        scanf("%c", &rep);
+        rep= toupper(rep);
+
+
+        if(rep=='J' || rep=='S'){
+            return rep;
+        } else{
+            printf("erreur choix d'action invalide");
+            valide=0;
+        }
+
+    } while (valide==0);
 
 
 

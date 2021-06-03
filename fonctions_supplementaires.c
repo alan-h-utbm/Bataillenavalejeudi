@@ -26,8 +26,7 @@ char debut_partie_choixlevel() {
     printf("    Quitter (Q)\n");
     printf("Faites votre choix : \n");
     scanf("%c", &a);
-    a=toupper(a);
-
+    a = toupper(a);
 
 
     while (a != 'D' && a != 'C' && a != 'Q') {
@@ -37,32 +36,42 @@ char debut_partie_choixlevel() {
         scanf(" %c", &a);
         a = toupper(a);
     }
-//choix de la difficultée
-    switch (a) {
-        case 'Q' :
-            return 'Q';
-            break;
-        case 'C' :
-            printf("pas encore coder\n");
-            break;
-        case 'D' :
-            fflush(stdin);
-            printf("Choississez le niveau de difficulte :\n");
-            printf("Facile (F)\n");
-            printf("Moyen (M)\n");
-            printf("Difficile (D)\n");
-            gets(&b);
-            b = toupper(b);
 
-            while (b != 'F' && b != 'M' && b != 'D') {
-                printf("Erreur,la lettre entree ne correspond a aucun menus!\n");
-                printf("Veuillez choisir un niveau de difficulte : F, M ou D\n");
+
+
+
+//choix de la difficultée
+        switch (a) {
+            case 'Q' :
+                return a;
+                break;
+            case 'C' :
+                return a;
+                break;
+            case 'D' :
+                fflush(stdin);
+                printf("Choississez le niveau de difficulte :\n");
+                printf("Facile (F)\n");
+                printf("Moyen (M)\n");
+                printf("Difficile (D)\n");
                 gets(&b);
                 b = toupper(b);
-            }
+
+                while (b != 'F' && b != 'M' && b != 'D') {
+                    printf("Erreur,la lettre entree ne correspond a aucun menus!\n");
+                    printf("Veuillez choisir un niveau de difficulte : F, M ou D\n");
+                    gets(&b);
+                    b = toupper(b);
+
+                }
+                break;
+        }
+        return b;
     }
-    return b;
-}
+
+
+
+
 /**
  * fonction qui affiche le menus du jeu et permet retrourner le mode de jeu choisi par l'utilisateur
  * @return a le choix du mode
@@ -86,16 +95,8 @@ char debut_partie_choixmode(){
                 a=toupper(a);
             }
 
+    return a;
 
-//
-            switch (a) {
-                case 'C' :
-                    printf("\nOn verra apres\n");
-                case 'B' :
-                    printf("On verra apres\n");
-                case 'A' :
-                    printf("On verra apres\n");
-            }
 
             }
 
